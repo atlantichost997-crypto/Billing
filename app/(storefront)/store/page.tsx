@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function StorePage() {
   const { success, products, error } = await getProducts();
 
