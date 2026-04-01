@@ -1,0 +1,5 @@
+{
+  "name": "AsiaNodes Headless WHMCS",
+  "description": "Headless custom frontend for AsiaNodes hosting company using Next.js and WHMCS API.",
+  "requestFramePermissions": []
+}
