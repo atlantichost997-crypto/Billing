@@ -61,6 +61,9 @@ export async function callWhmcsApi<T extends WhmcsBaseResponse>(
       if (response.status === 403) {
         throw new Error(`HTTP 403 Forbidden. This usually means the server IP is not whitelisted in WHMCS (General Settings -> Security -> API IP Access Restriction) or a WAF (like Cloudflare) is blocking the request.`);
       }
+      if (response.status === 404) {
+        throw new Error(`HTTP 404 Not Found. The WHMCS API endpoint was not found. Please check that your WHMCS_URL environment variable is correct and points directly to the api.php file (e.g., https://yourdomain.com/includes/api.php or https://yourdomain.com/client/includes/api.php).`);
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
@@ -88,7 +91,7 @@ export async function callWhmcsApi<T extends WhmcsBaseResponse>(
     // Log unexpected network/parsing errors securely on the server
     console.error(`[WHMCS API Error] Action: ${action} | Details:`, error);
     
-    if (error instanceof Error && error.message.includes('HTTP 403 Forbidden')) {
+    if (error instanceof Error && (error.message.includes('HTTP 403 Forbidden') || error.message.includes('HTTP 404 Not Found'))) {
       throw new WhmcsApiError(error.message);
     }
 

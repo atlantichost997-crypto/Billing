@@ -21,6 +21,11 @@ export class WhmcsApiError extends Error {
 function translateWhmcsError(message: string): string {
   const lowerMessage = message.toLowerCase();
 
+  // Network & Configuration Errors
+  if (lowerMessage.includes('http 403 forbidden') || lowerMessage.includes('http 404 not found')) {
+    return message; // Return the detailed message we constructed in lib/whmcs.ts
+  }
+
   // Authentication & Session
   if (lowerMessage.includes('authentication failed') || lowerMessage.includes('api credentials')) {
     return 'We encountered an issue connecting to the billing system. Please try again later.';
