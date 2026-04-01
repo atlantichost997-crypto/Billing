@@ -54,7 +54,7 @@ export async function getTicket(ticketId: number) {
   try {
     const clientid = await getClientId();
     // In a real app, verify the ticket belongs to the clientid
-    const response = await callWhmcsApi<WhmcsGetTicketResponse>('GetTicket', { ticketid });
+    const response = await callWhmcsApi<WhmcsGetTicketResponse>('GetTicket', { ticketid: ticketId });
     return { success: true, ticket: response };
   } catch (error) {
     return { success: false, error: error instanceof WhmcsApiError ? error.userFriendlyMessage : 'Failed to load ticket.' };

@@ -6,8 +6,9 @@ import { Textarea } from '@/components/ui/textarea';
 import Link from 'next/link';
 import { ArrowLeft, User, ShieldCheck } from 'lucide-react';
 
-export default async function TicketDetailsPage({ params }: { params: { ticketId: string } }) {
-  const ticketId = parseInt(params.ticketId, 10);
+export default async function TicketDetailsPage({ params }: { params: Promise<{ ticketId: string }> }) {
+  const resolvedParams = await params;
+  const ticketId = parseInt(resolvedParams.ticketId, 10);
   const { success, ticket, error } = await getTicket(ticketId);
 
   if (!success || !ticket) {

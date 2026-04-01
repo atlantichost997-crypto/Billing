@@ -1,4 +1,3 @@
-import 'server-only'; // STRICT ENFORCEMENT: This file can NEVER be imported into a Client Component
 import { WhmcsApiError } from './errors';
 import type { WhmcsBaseResponse, WhmcsParams } from '@/types/whmcs';
 
